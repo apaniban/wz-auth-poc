@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/auth-context'
 
 const Login = () => {
   const { login } = useAuth({
-    redirectTo: '/'
+    redirectTo: '/dashboard'
   })
 
   const handleSubmit = async (e) => {

@@ -1,19 +1,18 @@
 import { useEffect } from 'react'
 
 const PubliftAds = ({ showAds, fuseId }) => {
+  const fusetag = window.fusetag || { que: [] }
+
   useEffect(() => {
     let isMounted = true;
 
-    if (showAds) {
-      if (window && window.fusetag && isMounted) {
-        const fusetag = window.fusetag || { que: [] }
-
-        fusetag.que.push(() => fusetag.loadSlotById(fuseId));
-      }
+    if (showAds && isMounted) {
+      fusetag.que.push(() => fusetag.loadSlotById(fuseId));
     }
 
     return () => {
-      isMounted = false;
+      isMounted = false
+      fusetag.que.push(() => fusetag.resetSlots())
     };
 
   }, [showAds, fuseId])

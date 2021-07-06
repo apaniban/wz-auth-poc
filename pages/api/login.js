@@ -7,7 +7,7 @@ const login = async (req, res) => {
 
   if (username === 'admin') {
     user = {
-      token: 'admin__token',
+      accessToken: 'admin_jwt_here',
       accessLevel: 200,
       username: 'admin',
       name: 'Admin',
@@ -17,7 +17,7 @@ const login = async (req, res) => {
 
   if (username === 'test') {
     user = {
-      token: 'test__token',
+      accessToken: 'test_jwt_here',
       accessLevel: 0,
       username: 'test',
       name: 'Test',

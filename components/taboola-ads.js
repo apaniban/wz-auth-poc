@@ -1,38 +1,45 @@
 import { useEffect, useRef } from 'react'
 
-const TaboolaAds = ({ showAds }) => {
+const TaboolaAds = ({ showAds, pageType, targetType }) => {
   let isMounted = true
   const containerRef = useRef(null)
+  const taboola = window?._taboola || [];
 
   useEffect(() => {
-    if (window && isMounted && showAds) {
-      window._taboola = window?._taboola || [];
+    let isMounted = true
 
-      window?._taboola?.push({ notify: 'newPageLoad' });
+    if (isMounted && showAds && containerRef) {
+      taboola.push({ notify: 'newPageLoad' });
 
-      window?._taboola?.push({
-        article: 'auto',
+      taboola.push({
+        [pageType]: 'auto',
         url: `${window?.location?.origin}`,
-      });
-    }
-  }, [showAds])
-
-  useEffect(() => {
-    let isMounted = true;
-
-    if (window && isMounted && showAds && containerRef.current) {
-      window._taboola = window._taboola || [];
-
-      window?._taboola?.push({
-        mode: 'thumbnails-b',
-        container: containerRef.current,
-        placement: 'Below Home Thumbnails',
-        target_type: 'mix',
       });
     }
 
     return () => {
-      isMounted = false;
+      isMounted = false
+      taboola.push({ flush: true })
+    }
+  }, [showAds, pageType])
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted && showAds && containerRef.current) {
+      const taboola = window?._taboola || [];
+
+      taboola.push({
+        mode: 'thumbnails-b',
+        container: containerRef.current,
+        placement: 'Below Home Thumbnails',
+        target_type: targetType
+      });
+    }
+
+    return () => {
+      isMounted = false
+      taboola.push({ flush: true })
     };
   }, [containerRef, showAds]);
 
