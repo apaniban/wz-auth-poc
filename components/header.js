@@ -10,7 +10,6 @@ const Header = () => {
   const handleOnLogoutClick = async (e) => {
     e.preventDefault()
     await logout()
-    router.push('/login')
   }
 
   return (

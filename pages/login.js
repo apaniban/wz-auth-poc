@@ -4,9 +4,8 @@ import Layout from '../components/layout'
 import { useAuth } from '../contexts/auth-context'
 
 const Login = () => {
-
   const { login } = useAuth({
-    redirectTo: '/dashboard'
+    redirectTo: '/'
   })
 
   const handleSubmit = async (e) => {

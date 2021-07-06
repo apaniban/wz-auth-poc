@@ -11,11 +11,11 @@ export const AuthProvider = (props) => {
 
   const login = (body) => axios.post('/api/login', body)
     .then(R.prop('data'))
-    .then((u) => mutateUser(u, false))
+    .then(mutateUser)
 
   const logout = () => axios.delete('/api/logout')
     .then(R.prop('data'))
-    .then((u) => mutateUser(u, false))
+    .then(mutateUser)
 
   return (
     <AuthContext.Provider value={{ user, mutateUser, login, logout }} { ...props } />
